@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Super Advanced Homepage - Your go-to destination for movies and entertainment">
+    <title>CineMate.ai | Home </title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #111;
+            font-family: 'Merienda', cursive;
+            margin: 0;
+            color: #fff;
+        }
+    
+        #footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 20px 0;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+    
+        .loading-spinner {
+            border: 8px solid #34D399;
+            border-top: 8px solid #111;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+    
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    
+        .movie-carousel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 0;
+            overflow: hidden;
+        }
+    
+        .movie-slide {
+            flex-shrink: 0;
+            margin: 0 15px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+    
+        .movie-slide img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+    
+        .movie-slide:hover img {
+            transform: scale(1.05);
+        }
+    
+        .movie-title {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #34D399;
+            transition: color 0.3s ease;
+        }
+    
+        .movie-slide:hover .movie-title {
+            color: #FF6B6B;
+        }
+    
+        .watch-now-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #34D399;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+        }
+    
+        .watch-now-button:hover {
+            background-color: #FF6B6B;
+        }
+    </style>
+</head>
+<body>
+    <nav class="bg-gray-900 text-white">
+        <div class="container mx-auto py-4">
+            <div class="flex items-center justify-between">
+                <a class="flex items-center" href="#">
+                    <span class="ml-2 font-bold text-xl">CineMate.ai</span>
+                </a>
+                <button class="block lg:hidden focus:outline-none text-white">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+                <div class="hidden lg:flex lg:items-center lg:w-auto" id="navbarSupportedContent">
+                    <ul class="flex justify-end">
+                        <li><a class="px-4 py-2" href="#">Home</a></li>
+                        <li><a id="exploreLink" class="px-4 py-2" href="#">Explore</a></li>
+                        <li><a class="px-4 py-2" href="#">Contact us</a></li>
+                    </ul>
+                    <form class="ml-4 lg:ml-8 flex">
+                        <input class="bg-gray-800 text-white rounded-l-lg py-2 px-4 focus:outline-none" type="search" placeholder="Search" aria-label="Search">
+                        <button class="bg-gray-700 text-white rounded-r-lg px-4 py-2" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="container mx-auto mt-8 relative">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+        <h2 class="text-center mb-4 text-3xl font-bold"><i class="fas fa-laptop-code"></i> Developers Choice</h2>
+
+        <div class="loading-overlay">
+            <div class="loading-spinner"></div>
+        </div>
+
+        <div class="movie-carousel" id="movie-carousel"></div>
+    </section>
+
+    <footer class="bg-gray-900 text-white text-center py-3 mt-8 opacity-0 transition-opacity duration-500" id="footer">
+        <div class="container mx-auto">
+            <p>&copy; 2024 CineMate.ai</p>
+        </div>
+    </footer>
+
+    <script>
+
+        function fadeInPosters() {
+            gsap.to('.movie-slide', {
+                opacity: 1,
+                duration: 1,
+                stagger: 0.2,
+                y: 0
+            });
+        }
+    
+        function animateCarousel() {
+            const movieContainer = document.getElementById('movie-carousel');
+            const movies = document.querySelectorAll('.movie-slide');
+            const firstMovie = movies[0];
+            const movieWidth = firstMovie.offsetWidth + parseInt(window.getComputedStyle(firstMovie).marginRight);
+
+            gsap.to(movieContainer, {
+                x: `-=${movieWidth}`,
+                duration: 20,
+                ease: 'linear',
+                onComplete: function() {
+                    movieContainer.appendChild(firstMovie);
+                    gsap.set(movieContainer, { x: 0 });
+                    animateCarousel();
+                }
+            });
+        }
+
+        function superAdvancedLoading() {
+            const loadingSpinner = document.querySelector('.loading-spinner');
+            gsap.to(loadingSpinner, {
+                rotate: '360deg',
+                duration: 2,
+                repeat: -1,
+                ease: 'linear'
+            });
+        }
+    
+        fetch('/movies_data/')
+            .then(response => {
+                document.querySelector('.loading-overlay').style.display = 'flex';
+                return new Promise(resolve => setTimeout(resolve, 2000))
+                    .then(() => response.json());
+            })
+            .then(data => {
+                const movieContainer = document.getElementById('movie-carousel');
+                const footer = document.getElementById('footer');
+                const moviesHtml = data.map(movie => `
+                    <div class="movie-slide">
+                        <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                            <img src="${movie.imageUrl}" alt="${movie.title} Poster">
+                            <div class="movie-title">${movie.title}</div>
+                            <a href="${movie.watchUrl}" class="watch-now-button">Watch Now</a>
+                        </div>
+                    </div>
+                `).join('');
+                movieContainer.innerHTML = moviesHtml;
+    
+                document.querySelector('.loading-overlay').style.display = 'none';
+                fadeInPosters();
+                animateCarousel();
+                superAdvancedLoading();
+                setTimeout(() => footer.style.opacity = 1, 500);
+            });
+    
+    {% comment %} TODO:add new url of streamlit {% endcomment %}
+        $('#exploreLink').click(function(event) {
+            event.preventDefault();
+            window.location.href = 'https://forty-masks-walk.loca.lt/';
+        });
+    
+        $('#navbarSupportedContent a[href="#"]').eq(2).click(function(event) {
+            event.preventDefault();
+            window.location.href = 'https://ltzmk06.github.io/personal-site/';
+        });
+    
+    
+        particlesJS("cosmic-background", {
+            "particles": {
+                "number": {
+                    "value": 150,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    },
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 0.5,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 2,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": false
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 0.2,
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 200,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    
+    </script>
+    
+</body>
+</html>

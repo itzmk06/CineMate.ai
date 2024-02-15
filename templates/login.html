@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>CineMate.ai | Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            color: #000;
+            font-family: 'Merienda', cursive;
+            height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            animation: changeBackground 30s infinite;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+
+        .container {
+            position: relative;
+            text-align: center;
+            padding-top: 150px;
+        }
+
+        .brand-name {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #FFFFFF; 
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 30px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 1s forwards;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            display: inline-block;
+            border: none;
+            border-bottom: 2px solid #3498db;
+            box-sizing: border-box;
+            font-size: 1.2em;
+            background-color: transparent;
+            color: #000; 
+            transition: border-color 0.3s, color 0.3s; 
+            outline: none;
+            animation: fadeInUp 1s forwards;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #2980b9;
+            color: #000; 
+        }
+
+        .btn-submit {
+            background-color: #3498db;
+            color: #fff;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 1.4em;
+            width: 100%;
+            animation: fadeInUp 1s forwards;
+        }
+
+        .btn-submit:hover {
+            background-color: #2980b9;
+        }
+
+        .error-message,
+        .success-message {
+            color: #03c04A;
+            margin-top: -10px;
+            margin-bottom: 15px;
+            animation: fadeInUp 1s forwards;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .social-login {
+            margin-top: 30px;
+            color: #ffffff;
+        }
+
+        .social-login hr {
+            border-top: 1px solid #fff; 
+        }
+
+        .social-login-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .social-login-buttons button {
+            border: none;
+            margin: 0 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 1.2em;
+            transition: background-color 0.3s;
+            color: #000;
+            display: flex;
+            align-items: center;
+        }
+
+        .social-login-buttons .icon {
+            margin-right: 5px;
+            max-width: 20px;
+        }
+
+        .social-login-buttons button.facebook {
+            background-color: #b4ccff;
+        }
+
+        .social-login-buttons button.google {
+            background-color: #ffb3a9;
+        }
+
+        .social-login-buttons button.apple {
+            background-color: #8d8d8d;
+        }
+
+        .social-login-buttons button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes moveDot {
+            from {
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            to {
+                transform: translate(50%, 50%) scale(1);
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background: url('https://source.unsplash.com/1920x1080/?galaxy') center/cover no-repeat;
+        }
+
+        @keyframes changeBackground {
+            0% {
+                background: url('https://source.unsplash.com/1920x1080/?galaxy') center/cover no-repeat;
+            }
+            20% {
+                background: url('https://source.unsplash.com/1920x1080/?stars') center/cover no-repeat;
+            }
+            40% {
+                background: url('https://source.unsplash.com/1920x1080/?universe') center/cover no-repeat;
+            }
+            60% {
+                background: url('https://source.unsplash.com/1920x1080/?planet') center/cover no-repeat;
+            }
+            80% {
+                background: url('https://source.unsplash.com/1920x1080/?space') center/cover no-repeat;
+            }
+            100% {
+                background: url('https://source.unsplash.com/1920x1080/?galaxy') center/cover no-repeat;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="overlay"></div>
+
+<div class="container">
+
+    <div class="text-center">
+        <h1 class="brand-name animate__animated animate__fadeInDown">CineMate.ai</h1>
+    </div>
+
+    <form class="animate__animated animate__fadeInUp" id="loginForm">
+        <div class="form-group">
+            <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+        </div>
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+        <button type="submit" class="btn btn-submit">Login</button>
+    </form>
+
+    <div class="social-login">
+        <hr>
+        <p class="text-muted">Or log in with:</p>
+        <div class="social-login-buttons">
+            <button class="btn btn-facebook facebook">
+                <img src='/static/meta.png' alt="Meta" class="icon"> Meta
+            </button>
+            <button class="btn btn-google google">
+                <img src="/static/google.png" alt="Google" class="icon"> Google
+            </button>
+            <button class="btn btn-apple apple">
+                <img src="/static/apple.png" alt="Apple" class="icon"> Apple
+            </button>
+        </div>
+    </div>
+
+    <div class="advanced-dot"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $('#loginForm').submit(function (event) {
+            event.preventDefault();
+            var username = $('#username').val();
+            var password = $('#password').val();
+
+            if (username === 'Manoj' && password === '#Manoj') {
+                $('#errorMessage').text('');
+                $('#successMessage').text('Login successful! Redirecting...');
+                setTimeout(function () {
+                    window.location.href = 'index';  
+                }, 2000);
+            } else {
+                $('#errorMessage').text('Login failed. Please try again.'); 
+                $('#successMessage').text('');  
+            }
+        });
+
+        var mouseX = 0;
+        var mouseY = 0;
+
+        $(document).on('mousemove', function (event) {
+            mouseX = event.pageX;
+            mouseY = event.pageY;
+        });
+
+        function moveDot() {
+            var x = mouseX + 'px';
+            var y = mouseY + 'px';
+            $('.advanced-dot').css({ left: x, top: y });
+            requestAnimationFrame(moveDot);
+        }
+
+        moveDot();
+    });
+</script>
+
+</body>
+</html>
